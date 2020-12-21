@@ -9,7 +9,7 @@ export default class AuthService{
     public async SingUp(userInputDTO: IUserInputDTO):Promise<{user:IUser}>{
 
         // TODO: hash password properly
-        const hashedPassword = userInputDTO.password;
+        const hashedPassword = await argon2.hash(userInputDTO.password);
 
         const userRecord = await new User({
             ...userInputDTO,

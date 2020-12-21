@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import hello from './web/hello';
 import auth from './web/auth';
-// import user from './routes/user';
+import user from './web/user';
 
 
 // guaranteed to get dependencies
@@ -10,7 +10,7 @@ export default () => {
 
 	hello(app);
  	auth(app);
-
+	user(app);
 
 	return app
 }
