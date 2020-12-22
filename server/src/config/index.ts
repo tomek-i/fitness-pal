@@ -23,6 +23,13 @@ export default {
       url:process.env.MONGODB_URI
       } ,
 
+
+  /**
+   * Your secret sauce
+   */
+  jwtSecret: process.env.JWT_SECRET,
+  jwtAlgorithm: process.env.JWT_ALGO,
+
   /**
    * API configs
    */

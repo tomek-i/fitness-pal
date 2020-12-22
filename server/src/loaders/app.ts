@@ -2,7 +2,7 @@ import express from "express"
 import path from "path";
 import cors from "cors";
 import * as bodyParser from "body-parser";
-
+import cookieparser from "cookie-parser"
 import web_routes from '../routes';
 import api_routes from '../api';
 import config from '../config/index'
@@ -34,6 +34,8 @@ class App {
       this.app.set( "views", path.join( __dirname, "../views" ) );
       this.app.set( "view engine", "ejs" );
 
+
+      this.app.use(cookieparser());
       // The magic package that prevents frontend developers going nuts
       // Alternate description:
       // Enable Cross Origin Resource Sharing to all origins by default

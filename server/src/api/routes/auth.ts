@@ -16,8 +16,8 @@ export default (app: Router) => {
     try {
 
 
-        const { user } = await service.SingUp(req.body as IUserInputDTO);
-        return res.status(201).json({ user,});
+        const { user,token } = await service.SingUp(req.body as IUserInputDTO);
+        return res.status(201).json({ user, token});
       } catch (e) {
         // logger.error('🔥 error: %o',  e );
         return next(e);
@@ -33,8 +33,10 @@ export default (app: Router) => {
     try {
       const { email, password } = req.body;
 
-      const { user } = await service.SignIn(email, password);
-      return res.json({ user }).status(200);
+      const { user,token } = await service.SignIn(email, password);
+      res.setHeader(        "Set-Cookie",`token=${token}; HttpOnly`);
+      res.setHeader("Access-Control-Allow-Credentials","true");
+      return res.json({ user,token });
     } catch (e) {
       // logger.error('🔥 error: %o',  e );
       return next(e);
@@ -42,4 +44,6 @@ export default (app: Router) => {
 
 
   });
+
+
 };
