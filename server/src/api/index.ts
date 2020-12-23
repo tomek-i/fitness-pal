@@ -3,6 +3,7 @@ import health from "./routes/health"
 import auth from './routes/auth';
 import admin from './routes/admin';
 import user from './routes/user';
+import workouts from './routes/workouts';
 
 // guaranteed to get dependencies
 export default () => {
@@ -13,6 +14,7 @@ export default () => {
 	auth(app);
 	admin(app);
 	user(app);
+	workouts(app);
 
 	return app
 }

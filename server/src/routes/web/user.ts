@@ -12,6 +12,10 @@ export default (app: Router) => {
   route.get('/dashboard', (req: Request, res: Response) => {
     return  res.render('pages/user/dashboard');
   });
+  // TODO: need middleware to check user's logged in
+  route.get('/workouts', (req: Request, res: Response) => {
+    return  res.render('pages/user/workouts');
+  });
 
 
 };

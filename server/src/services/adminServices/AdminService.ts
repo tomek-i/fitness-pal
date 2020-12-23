@@ -3,8 +3,28 @@ import {IExercise,IExerciseInputDTO} from '../../interfaces/workout/IExercise';
 import User from '../../models/User'
 import Exercise from '../../models/Exercise'
 
+
+/**
+ * This service is designed to take care of most of the backend administration things.
+ * This might need to be separated and split into micro services for the various areas.
+ */
 export default class AdminService{
 
+
+    public async ListAllExercises():Promise<{exercises:IExercise[]}>{
+
+        try {
+            const  allExercises= await Exercise.find();
+
+            const exercises:IExercise[] = allExercises.map((exercise) =>
+                {return exercise.toObject();});
+            return {exercises};
+
+        } catch (error) {
+            throw error;
+        }
+
+    }
 
     /**
      * Returns all users within the system.
@@ -26,14 +46,14 @@ export default class AdminService{
 
     }
 
-    public async AddExercise(excerciseInputDTO:IExerciseInputDTO):Promise<{excercise:IExercise}>{
+    public async AddExercise(exerciseInputDTO:IExerciseInputDTO):Promise<{exercise:IExercise}>{
 
         try{
-          const excercise = await new Exercise({
-              ...excerciseInputDTO,
+          const exercise = await new Exercise({
+              ...exerciseInputDTO,
           }).save();
 
-            return { excercise };
+            return { exercise };
 
           } catch (e) {
 
