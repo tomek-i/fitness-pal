@@ -1,7 +1,7 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
-import AuthService from '../../services/AuthService';
 import {IUserInputDTO} from "../../interfaces/IUser";
+import AuthService from '../../services/AuthService';
 
 const route = Router();
 

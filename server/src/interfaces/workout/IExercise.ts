@@ -13,3 +13,8 @@ export interface IExercise {
     // not sure if this is required?
     type: string; // determins if its a time based excercise
 }
+
+
+export interface IExerciseInputDTO{
+    name:string
+}

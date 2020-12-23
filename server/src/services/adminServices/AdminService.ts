@@ -1,6 +1,7 @@
 import {IUser,IUserInputDTO} from '../../interfaces/IUser';
+import {IExercise,IExerciseInputDTO} from '../../interfaces/workout/IExercise';
 import User from '../../models/User'
-
+import Exercise from '../../models/Exercise'
 
 export default class AdminService{
 
@@ -25,31 +26,19 @@ export default class AdminService{
 
     }
 
-    public async AddExercise(userInputDTO: IUserInputDTO):Promise<{user:IUser}>{
+    public async AddExercise(excerciseInputDTO:IExerciseInputDTO):Promise<{excercise:IExercise}>{
 
-        /*
-        const hashedPassword = userInputDTO.password;
+        try{
+          const excercise = await new Exercise({
+              ...excerciseInputDTO,
+          }).save();
 
-        const userRecord = await new User({
-            ...userInputDTO,
-            password:hashedPassword
-        }).save();
+            return { excercise };
 
-        if (!userRecord) {
-            throw new Error('User cannot be created');
+          } catch (e) {
+
+            throw e;
           }
-
-          // await this.mailer.SendWelcomeEmail(userRecord);
-
-          // this.eventDispatcher.dispatch(events.user.signUp, { user: userRecord });
-
-          const user = userRecord.toObject();
-          Reflect.deleteProperty(user, 'password');
-          // Reflect.deleteProperty(user, 'salt');
-          return { user };
-          */
-         return null;
-    }
-
+      }
 
 }

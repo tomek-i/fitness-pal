@@ -1,6 +1,6 @@
 
 import { Router, Request, Response, NextFunction } from 'express';
-import User from "../../models/User";
+import {IExerciseInputDTO} from "../../interfaces/workout/IExercise"
 import AdminService from "../../services/adminServices/AdminService";
 
 
@@ -12,6 +12,20 @@ export default (app: Router) => {
 
 
   app.use('/admin', route);
+
+  route.post('/add/exercise', async (req: Request, res: Response,next: NextFunction) => {
+    try {
+
+      const exercise = await service.AddExercise(req.body as IExerciseInputDTO);
+      return res.status(200).json(exercise);
+
+    } catch (e) {
+      // logger.error('🔥 error: %o',  e );
+      return next(e);
+    }
+
+
+    });
 
   route.get('/list/users', async (req: Request, res: Response,next: NextFunction) => {
     try {
