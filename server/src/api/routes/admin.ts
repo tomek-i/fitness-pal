@@ -27,6 +27,23 @@ export default (app: Router) => {
 
     });
 
+    route.get('/add/routine', async (req: Request, res: Response,next: NextFunction) => {
+      try {
+
+        const b = await service.AddWorkoutSet();
+
+        const a = await service.AddRoutine();
+        return res.status(200).json(a);
+
+      } catch (e) {
+        // logger.error('🔥 error: %o',  e );
+        return next(e);
+      }
+
+
+      });
+
+
   route.get('/list/users', async (req: Request, res: Response,next: NextFunction) => {
     try {
 

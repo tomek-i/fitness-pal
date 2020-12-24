@@ -1,7 +1,9 @@
 import {IUser,IUserInputDTO} from '../../interfaces/IUser';
 import {IExercise,IExerciseInputDTO} from '../../interfaces/workout/IExercise';
+import {IWorkoutRoutine} from '../../interfaces/workout/IWorkoutRoutine';
+import {IWorkoutSet} from '../../interfaces/workout/IWorkoutSet';
 import User from '../../models/User'
-import Exercise from '../../models/Exercise'
+import {ExerciseModel,WorkoutRoutineModel,WorkoutSetModel,WeightedWorkoutSet,TimedWorkoutSet} from '../../models/Exercise'
 
 
 /**
@@ -14,7 +16,7 @@ export default class AdminService{
     public async ListAllExercises():Promise<{exercises:IExercise[]}>{
 
         try {
-            const  allExercises= await Exercise.find();
+            const  allExercises= await ExerciseModel.find();
 
             const exercises:IExercise[] = allExercises.map((exercise) =>
                 {return exercise.toObject();});
@@ -49,11 +51,46 @@ export default class AdminService{
     public async AddExercise(exerciseInputDTO:IExerciseInputDTO):Promise<{exercise:IExercise}>{
 
         try{
-          const exercise = await new Exercise({
+          const exercise = await new ExerciseModel({
               ...exerciseInputDTO,
           }).save();
 
             return { exercise };
+
+          } catch (e) {
+
+            throw e;
+          }
+      }
+
+      public async AddWorkoutSet():Promise<{ret:any}>{
+        const ex = await ExerciseModel.findOne();
+
+        const ret:any = await new TimedWorkoutSet({
+            start:Date.now(),
+            end: Date.now(),
+            exercise:ex
+        }).save();
+
+        return ret;
+      }
+
+      public async AddRoutine():Promise<{workoutroutine:IWorkoutRoutine}>{
+
+        try{
+            const x = await WorkoutSetModel.findOne();
+          const workoutroutine = await new WorkoutRoutineModel({
+              name:"Test Routine",
+              description: "just a test",
+          });
+
+          workoutroutine.exercises.push(x);
+          await workoutroutine.save()
+
+
+
+
+            return { workoutroutine };
 
           } catch (e) {
 
