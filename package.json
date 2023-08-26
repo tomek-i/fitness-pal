@@ -20,6 +20,9 @@
     "format": "prettier --write \"**/*.{ts,tsx,md}\"",
     "postinstall": "npx patch-package -y",
     "preinstall": "npx only-allow yarn",
+    "adr:init": "npx log4brains init",
+    "adr": "npx log4brains adr new",
+    "adr:view": "npx log4brains preview",
     "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
   },
   "dependencies": {
@@ -49,6 +52,7 @@
     "@vercel/otel": "^0.3.0",
     "class-variance-authority": "^0.7.0",
     "lodash": "^4.17.21",
+    "log4brains": "^1.0.1",
     "next": "^13.3.0",
     "next-compose-plugins": "^2.2.1",
     "react": "^18.2.0",
