@@ -43,9 +43,10 @@ async function main() {
           data: {
             name,
             muscles: {
-              create: muscles.map((name) => {
-                return { name };
-              }),
+              connectOrCreate: muscles.map((muscleName) => ({
+                where: { name: muscleName },
+                create: { name: muscleName },
+              })),
             },
           },
         });
