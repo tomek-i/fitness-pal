@@ -1,7 +1,7 @@
 import { User } from "@prisma/client";
-import { Button } from "components/Button/Button";
 import { GetStaticProps, InferGetStaticPropsType } from "next";
 import Head from "next/head";
+import { Button } from "components/Button/Button";
 import prisma from "../lib/prisma";
 
 export const getStaticProps: GetStaticProps = async () => {
