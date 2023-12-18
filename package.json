@@ -1,6 +1,8 @@
 {
-  "name": "next-enterprise",
+  "name": "my-fitness-buddy",
   "version": "0.0.0",
+  "author": "tomek iwainski",
+  "homepage": "https://my-fitness-buddy-ten.vercel.app/",
   "private": true,
   "prisma": {
     "seed": "npx ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"

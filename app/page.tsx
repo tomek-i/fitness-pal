@@ -8,7 +8,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
   },
   openGraph: {
-    url: "https://next-enterprise.vercel.app/",
+    url: "https://my-fitness-buddy-ten.vercel.app/",
     images: [
       {
         width: 1200,
@@ -33,7 +33,7 @@ export default function Web() {
               Experience rapid UI development, AI-powered code reviews, and an extensive suite of tools for a smooth and
               enjoyable development process.
             </p>
-            <Button href="https://github.com/Blazity/next-enterprise" className="mr-3">
+            <Button href="https://my-fitness-buddy-ten.vercel.app/" className="mr-3">
               Get started
             </Button>
             <Button
