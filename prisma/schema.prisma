@@ -66,3 +66,55 @@ model Routine {
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
+
+model Meal {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  servingSize String
+  calories    Decimal
+  notes       String
+
+  nutrients Nutrition[]
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
+
+model Nutrition {
+  id Int @id @default(autoincrement())
+
+  name        String
+  amount      Decimal
+  measurement String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  // parentId Int?        @unique
+  // parent   Nutrition?  @relation("MicroNutritions", fields: [parentId], references: [id])
+  // micros   Nutrition[] @relation("MicroNutritions")
+  Meal   Meal? @relation(fields: [mealId], references: [id])
+  mealId Int?
+}
+
+// carbs (macro)
+//  dietry fibers
+//  sugars
+//  starch
+//total fat (macro)
+//  saturated fat
+//  polyunsaturated fat
+//  monounsaturated fat
+//  trans fat
+// cholestorol
+//sodium
+//  potassium
+//protein (macro)
+
+// record 
+// Eggs   = name
+// 2      = qty
+// pieces = serving
+//       = notes
+//

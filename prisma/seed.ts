@@ -13,6 +13,20 @@ async function main() {
 
   console.log("Users created:", { admin });
 
+  const nutritions = [
+    {
+      name: "Carbs",
+      micros: [{ name: "Dietry Fibers" }, { name: "Sugars" }, { name: "Starch" }],
+    },
+    {
+      name: "Fat",
+      micros: [{ name: "Saturated Fat" }, { name: "Polyunsaturated Fat" }, { name: "Monounsaturated Fat" }],
+    },
+    {
+      name: "Protein",
+    },
+  ];
+
   const excercises = [
     {
       name: "Bodyweight Lunge",
