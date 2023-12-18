@@ -4,6 +4,7 @@ on:
     branches:
       - main
       - master
+      - develop
   pull_request: null
   workflow_dispatch: null
 jobs:
@@ -11,7 +12,7 @@ jobs:
     timeout-minutes: 60
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - run: echo "node_version=$(cat .github/nodejs.version)" >> $GITHUB_ENV
       - name: "use node ${{ env.node_version }}"
         uses: actions/setup-node@v3
