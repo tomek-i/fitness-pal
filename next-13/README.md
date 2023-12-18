@@ -14,7 +14,7 @@ Welcome to the _Next.js Enterprise Boilerplate_, an open-source template for ent
 
 With this template, you get all the awesomeness you need:
 
-- 🏎️ **[Next.js](https://nextjs.org/)** - Fast by default, with config optimized for performance (with **App Directory**)
+- 🏎️ **[Next.js](https://nextjs.org/)** - Fast by default, with config optimized for performance
 - 💅 **[Tailwind CSS](https://tailwindcss.com/)** - A utility-first CSS framework for rapid UI development
 - ✨ **[ESlint](https://eslint.org/)** and **[Prettier](https://prettier.io/)** - For clean, consistent, and error-free code
 - 🛠️ **[Extremely strict TypeScript](https://www.typescriptlang.org/)** - With [`ts-reset`](https://github.com/total-typescript/ts-reset) library for ultimate type safety
@@ -60,7 +60,7 @@ With this template, you get all the awesomeness you need:
   - [🤖 ChatGPT Code Review](#-chatgpt-code-review)
   - [💻 Environment Variables handling](#-environment-variables-handling)
   - [🤝 Contribution](#-contribution)
-  - [Support](#support)
+  - [💌 Support](#support)
   - [📜 License](#-license)
   - [Contributors](#contributors)
 
@@ -100,7 +100,7 @@ pre-commit install -t commit-msg
 
 Easily deploy your Next.js app with [Vercel](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=github&utm_campaign=next-enterprise) by clicking the button below:
 
-[![Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/tomek-i/fitness-pal)
+[![Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/Blazity/next-enterprise)
 
 ## 📃 Scripts Overview
 
@@ -159,29 +159,29 @@ To write acceptance tests, we leverage Storybook's [`play` function](https://sto
  */
 export const FilledForm: Story = {
   play: async ({ canvasElement }) => {
-    const canvas = within(canvasElement);
+    const canvas = within(canvasElement)
 
     const emailInput = canvas.getByLabelText("email", {
       selector: "input",
-    });
+    })
 
     await userEvent.type(emailInput, "example-email@email.com", {
       delay: 100,
-    });
+    })
 
     const passwordInput = canvas.getByLabelText("password", {
       selector: "input",
-    });
+    })
 
     await userEvent.type(passwordInput, "ExamplePassword", {
       delay: 100,
-    });
+    })
     // See https://storybook.js.org/docs/react/essentials/actions#automatically-matching-args to learn how to setup logging in the Actions panel
-    const submitButton = canvas.getByRole("button");
+    const submitButton = canvas.getByRole("button")
 
-    await userEvent.click(submitButton);
+    await userEvent.click(submitButton)
   },
-};
+}
 ```
 
 ### Smoke Testing
@@ -247,7 +247,7 @@ export const env = createEnv({
     SECRET_KEY: process.env.SECRET_KEY,
     API_URL: process.env.NEXT_PUBLIC_API_URL,
   },
-});
+})
 ```
 
 If the required environment variables are not set, you'll get an error message:
