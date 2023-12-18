@@ -1,22 +1,22 @@
-import * as RadixTooltip from "@radix-ui/react-tooltip";
-import { cva, VariantProps } from "class-variance-authority";
-import React from "react";
-import { twMerge } from "tailwind-merge";
+import * as RadixTooltip from "@radix-ui/react-tooltip"
+import { cva, VariantProps } from "class-variance-authority"
+import React from "react"
+import { twMerge } from "tailwind-merge"
 
 const tooltipContent = cva([], {
   variants: {
     intent: {
-      primary: ["rounded-md ", "bg-zinc-700", "font-sans", "text-white"],
+      primary: ["rounded-0.5md", "bg-zinc-700", "font-open-sans", "text-white"],
     },
     size: {
-      md: ["px-4", "py-2.5", "text-xs"],
+      md: ["px-4", "py-2.5", "text-2xs"],
     },
   },
   defaultVariants: {
     intent: "primary",
     size: "md",
   },
-});
+})
 
 const tooltipArrow = cva([], {
   variants: {
@@ -31,14 +31,14 @@ const tooltipArrow = cva([], {
     intent: "primary",
     size: "md",
   },
-});
+})
 
 export interface TooltipProps extends VariantProps<typeof tooltipContent>, RadixTooltip.TooltipProps {
-  explainer: React.ReactElement | string;
-  children: React.ReactElement;
-  className?: string;
-  withArrow?: boolean;
-  side?: "top" | "right" | "bottom" | "left";
+  explainer: React.ReactElement | string
+  children: React.ReactElement
+  className?: string
+  withArrow?: boolean
+  side?: "top" | "right" | "bottom" | "left"
 }
 
 export function Tooltip({
@@ -69,5 +69,5 @@ export function Tooltip({
         </RadixTooltip.Portal>
       </RadixTooltip.Root>
     </RadixTooltip.Provider>
-  );
+  )
 }
