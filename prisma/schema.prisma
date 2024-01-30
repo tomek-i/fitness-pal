@@ -71,9 +71,13 @@ model Meal {
   id   Int    @id @default(autoincrement())
   name String
 
-  servingSize String
-  calories    Decimal
+  servingSize String // 175 g
+  servings    Int // 1 
+  calories    Float
   notes       String
+  mealType    String // Breakfast, Lunch, Dinner, Snack, other
+  // calorioes?
+  // kilojoule?
 
   //nutrients Nutrition[]
 
@@ -81,12 +85,14 @@ model Meal {
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
 
+//NOTE: maybe have a NutritionCategory - fats, carbs, vitamins, or something
+
 // model Nutrition {
 //   id Int @id @default(autoincrement())
 
 //   name        String
 //   amount      Decimal
-//   measurement String
+//   measurement String  //could be g or % or mg
 
 //   createdAt DateTime @default(now()) @map(name: "created_at")
 //   updatedAt DateTime @updatedAt @map(name: "updated_at")

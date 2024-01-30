@@ -28,6 +28,8 @@
     "adr:init": "npx log4brains init",
     "adr": "npx log4brains adr new",
     "adr:view": "npx log4brains preview",
+    "prisma:studio": "npx prisma studio",
+    "prisma:gen": "npx prisma generate",
     "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
   },
   "dependencies": {
@@ -61,6 +63,7 @@
     "log4brains": "^1.0.1",
     "next": "^14.0.3",
     "next-compose-plugins": "^2.2.1",
+    "openfoodfacts-nodejs": "^0.1.0",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "tailwind-merge": "^2.0.0",
