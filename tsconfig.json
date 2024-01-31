@@ -17,10 +17,10 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@lib/*": ["lib/*"],
-      "@services/*": ["services/*"],
+      "@lib/*": ["src/lib/*"],
+      "@services/*": ["src/services/*"],
       "@components/*": ["components/*"]
     },
     "types": ["node", "jest", "@testing-library/jest-dom"],
@@ -31,5 +31,5 @@
     ]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "**/*.mjs", "jest.config.js", ".next/types/**/*.ts"],
-  "exclude": ["node_modules", "__legacy", "next-13"]
+  "exclude": ["node_modules", "__legacy", "__next-13"]
 }
