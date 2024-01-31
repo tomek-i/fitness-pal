@@ -1,9 +1,5 @@
 //READ: https://nextjs.org/docs/app/api-reference/file-conventions/route
 
-type ResponseData = {
-  message: string;
-};
-
 export async function GET() {
   return Response.json({ status: "ok" });
 }
