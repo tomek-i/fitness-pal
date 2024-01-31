@@ -1,5 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from "next";
-
 //READ: https://nextjs.org/docs/app/api-reference/file-conventions/route
 
 type ResponseData = {
@@ -10,9 +8,9 @@ export async function GET() {
   return Response.json({ status: "ok" });
 }
 
-export async function POST(req: NextApiRequest, res: NextApiResponse<ResponseData>) {
+export async function POST(_: Request) {
   //TODO: create a new meal
-  res.status(200).json({ message: "Hello from Next.js!" });
+  Response.json({ message: "Hello from Next.js!" });
 }
 
 export async function PATCH() {

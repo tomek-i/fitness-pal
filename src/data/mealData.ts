@@ -5,7 +5,6 @@ export const mealData: Meal[] = [
     id: 1,
     calories: 100,
     name: "Garlic and Herb Chicken",
-    // brand: "My Muscle Chef"
     notes: "",
     mealType: "Breakfast",
     servings: 1,

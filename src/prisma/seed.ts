@@ -13,7 +13,7 @@ async function main() {
 
   console.log("Users created:", { admin });
 
-  const nutritions = [
+  const _ = [
     {
       name: "Carbs",
       micros: [{ name: "Dietry Fibers" }, { name: "Sugars" }, { name: "Starch" }],

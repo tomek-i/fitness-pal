@@ -9,7 +9,7 @@ export class MealService {
     return { id } as Meal;
   }
 
-  create(meal: Meal): Meal {
+  create(_: Meal): Meal {
     return {} as Meal;
   }
   update(meal: Meal) {
