@@ -1,11 +1,11 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const fs = require("fs")
+const fs = require("fs");
 
 module.exports = {
   extends: [
     "next",
     "prettier",
-    "react-app",
+    //"react-app",
     "react-app/jest",
     "plugin:@typescript-eslint/recommended",
     "plugin:storybook/recommended",
@@ -66,15 +66,15 @@ module.exports = {
       },
     ],
   },
-}
+};
 
 function getDirectoriesToSort() {
-  const ignoredSortingDirectories = [".git", ".next", ".vscode", "node_modules"]
-  return getDirectories(process.cwd()).filter((f) => !ignoredSortingDirectories.includes(f))
+  const ignoredSortingDirectories = [".git", ".next", ".vscode", "node_modules"];
+  return getDirectories(process.cwd()).filter((f) => !ignoredSortingDirectories.includes(f));
 }
 
 function getDirectories(path) {
   return fs.readdirSync(path).filter(function (file) {
-    return fs.statSync(path + "/" + file).isDirectory()
-  })
+    return fs.statSync(path + "/" + file).isDirectory();
+  });
 }
