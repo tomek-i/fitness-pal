@@ -5,7 +5,8 @@
   "homepage": "https://my-fitness-buddy-ten.vercel.app/",
   "private": true,
   "prisma": {
-    "seed": "npx ts-node --compiler-options {\"module\":\"CommonJS\"} prisma/seed.ts"
+    "schema": "./src/prisma/schema.prisma",
+    "seed": "npx ts-node --compiler-options {\"module\":\"CommonJS\"} ./src/prisma/seed.ts"
   },
   "scripts": {
     "dev": "cross-env FORCE_COLOR=1 next dev",
@@ -29,7 +30,9 @@
     "adr": "npx log4brains adr new",
     "adr:view": "npx log4brains preview",
     "prisma:studio": "npx prisma studio",
+    "prisma:migrate": "npx prisma migrate dev",
     "prisma:gen": "npx prisma generate",
+    "prisma:seed": "npx prisma db seed",
     "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
   },
   "dependencies": {
@@ -120,7 +123,7 @@
     "postinstall-postinstall": "^2.1.0",
     "prettier": "3.0.3",
     "prettier-plugin-tailwindcss": "^0.5.7",
-    "prisma": "^5.2.0",
+    "prisma": "^5.9.1",
     "semantic-release": "^22.0.8",
     "storybook": "^7.5.3",
     "tailwindcss": "^3.3.5",
