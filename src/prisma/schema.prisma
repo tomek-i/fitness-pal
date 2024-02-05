@@ -23,8 +23,12 @@ model User {
   email String  @unique
   name  String?
 
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  createdAt      DateTime         @default(now()) @map(name: "created_at")
+  updatedAt      DateTime         @updatedAt @map(name: "updated_at")
+  ExercisePlan   ExercisePlan[]
+  ExerciseRecord ExerciseRecord[]
+  Meal           Meal[]
+  WeightRecord   WeightRecord[]
 }
 
 // Describes an excercise
@@ -34,8 +38,10 @@ model Exercise {
   name    String   @unique
   muscles Muscle[]
 
-  createdAt DateTime @default(now()) @map(name: "created_at")
-  updatedAt DateTime @updatedAt @map(name: "updated_at")
+  createdAt      DateTime         @default(now()) @map(name: "created_at")
+  updatedAt      DateTime         @updatedAt @map(name: "updated_at")
+  ExercisePlan   ExercisePlan[]
+  ExerciseRecord ExerciseRecord[]
 }
 
 model Set {
@@ -67,22 +73,81 @@ model Routine {
   updatedAt DateTime @updatedAt @map(name: "updated_at")
 }
 
+model ExercisePlan {
+  id          Int      @id @default(autoincrement())
+  day         DateTime
+  sets        Int
+  repetitions Int
+  exerciseId  Int
+  userId      Int
+  Exercise    Exercise @relation(fields: [exerciseId], references: [id])
+  User        User     @relation(fields: [userId], references: [id])
+}
+
+model ExerciseRecord {
+  id          Int      @id @default(autoincrement())
+  day         DateTime
+  sets        Int
+  repetitions Int
+  exerciseId  Int
+  userId      Int
+  Exercise    Exercise @relation(fields: [exerciseId], references: [id])
+  User        User     @relation(fields: [userId], references: [id])
+}
+
 model Meal {
-  id   Int    @id @default(autoincrement())
-  name String
+  id    Int      @id @default(autoincrement())
+  name  String
+  notes String?
+  time  DateTime
 
   servingSize String // 175 g
   servings    Int // 1 
   calories    Float
-  notes       String
   mealType    String // Breakfast, Lunch, Dinner, Snack, other
+
+  userId           Int
+  macronutrientsId Int
+  micronutrientsId Int
+  User             User           @relation(fields: [userId], references: [id])
+  Macronutrients   Macronutrients @relation(fields: [macronutrientsId], references: [id])
+  Micronutrients   Micronutrients @relation(fields: [micronutrientsId], references: [id])
   // calorioes?
   // kilojoule?
 
-  //nutrients Nutrition[]
-
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
+
+model WeightRecord {
+  id     Int      @id @default(autoincrement())
+  date   DateTime
+  weight Float
+  userId Int
+  User   User     @relation(fields: [userId], references: [id])
+}
+
+model Macronutrients {
+  id                 Int    @id @default(autoincrement())
+  carbs              Float
+  dietaryFibers      Float
+  sugars             Float
+  starch             Float
+  totalFat           Float
+  saturatedFat       Float
+  polyunsaturatedFat Float
+  monounsaturatedFat Float
+  transFat           Float
+  protein            Float
+  Meal               Meal[]
+}
+
+model Micronutrients {
+  id          Int    @id @default(autoincrement())
+  cholesterol Float
+  sodium      Float
+  potassium   Float
+  Meal        Meal[]
 }
 
 //NOTE: maybe have a NutritionCategory - fats, carbs, vitamins, or something
