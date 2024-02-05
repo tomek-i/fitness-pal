@@ -14,7 +14,7 @@ model Muscle {
   id   Int    @id @default(autoincrement())
   name String @unique
 
-  Excercise   Excercise? @relation(fields: [excerciseId], references: [id])
+  Excercise   Exercise? @relation(fields: [excerciseId], references: [id])
   excerciseId Int?
 }
 
@@ -28,7 +28,7 @@ model User {
 }
 
 // Describes an excercise
-model Excercise {
+model Exercise {
   id Int @id @default(autoincrement())
 
   name    String   @unique

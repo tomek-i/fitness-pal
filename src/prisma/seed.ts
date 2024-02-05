@@ -27,7 +27,7 @@ async function main() {
     },
   ];
 
-  const excercises = [
+  const exercises = [
     {
       name: "Bodyweight Lunge",
       muscles: ["Quadriceps", "Glutes", "Soleus", "Adductors", "Abductors"],
@@ -51,33 +51,38 @@ async function main() {
   ];
 
   await Promise.all(
-    excercises.map(async ({ name, muscles }) => {
+    exercises.map(async ({ name, muscles }) => {
       try {
-        await prisma.excercise.create({
-          data: {
+        const existingExercise = await prisma.exercise.findUnique({
+          where: {
             name,
-            muscles: {
-              connectOrCreate: muscles.map((muscleName) => ({
-                where: { name: muscleName },
-                create: { name: muscleName },
-              })),
-            },
           },
         });
+        if (!existingExercise)
+          await prisma.exercise.create({
+            data: {
+              name,
+              muscles: {
+                connectOrCreate: muscles.map((muscleName) => ({
+                  where: { name: muscleName },
+                  create: { name: muscleName },
+                })),
+              },
+            },
+          });
       } catch (error) {
         console.error(error);
       }
     })
   );
 
-  console.log("Excercices created: ", excercises.length);
+  console.log("Excercices created: ", exercises.length);
 }
 main()
-  .then(async () => {
-    await prisma.$disconnect();
-  })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
     process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
   });
