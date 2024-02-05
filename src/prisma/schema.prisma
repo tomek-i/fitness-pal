@@ -106,12 +106,9 @@ model Meal {
   calories    Float
   mealType    String // Breakfast, Lunch, Dinner, Snack, other
 
-  userId           Int
-  macronutrientsId Int
-  micronutrientsId Int
-  User             User           @relation(fields: [userId], references: [id])
-  Macronutrients   Macronutrients @relation(fields: [macronutrientsId], references: [id])
-  Micronutrients   Micronutrients @relation(fields: [micronutrientsId], references: [id])
+  userId        Int
+  User          User            @relation(fields: [userId], references: [id])
+  NutritionInfo NutritionInfo[]
   // calorioes?
   // kilojoule?
 
@@ -127,27 +124,20 @@ model WeightRecord {
   User   User     @relation(fields: [userId], references: [id])
 }
 
-model Macronutrients {
-  id                 Int    @id @default(autoincrement())
-  carbs              Float
-  dietaryFibers      Float
-  sugars             Float
-  starch             Float
-  totalFat           Float
-  saturatedFat       Float
-  polyunsaturatedFat Float
-  monounsaturatedFat Float
-  transFat           Float
-  protein            Float
-  Meal               Meal[]
+//TODO: need to add sub nutritions eg. carbs can be broken down into sugars, starch, dietry fibers
+model Nutrition {
+  id            Int             @id @default(autoincrement())
+  name          String
+  NutritionInfo NutritionInfo[]
 }
 
-model Micronutrients {
-  id          Int    @id @default(autoincrement())
-  cholesterol Float
-  sodium      Float
-  potassium   Float
-  Meal        Meal[]
+model NutritionInfo {
+  id          Int       @id @default(autoincrement())
+  amount      Float
+  mealId      Int
+  nutritionId Int
+  Meal        Meal      @relation(fields: [mealId], references: [id])
+  Nutrition   Nutrition @relation(fields: [nutritionId], references: [id])
 }
 
 //NOTE: maybe have a NutritionCategory - fats, carbs, vitamins, or something
