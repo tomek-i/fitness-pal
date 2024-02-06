@@ -6,12 +6,22 @@ const prisma = new PrismaClient();
 async function main() {
   const admin = await upsertUser({
     email: "admin@example.com",
-    name: "Admin",
+    password: "admin",
+    Profile: {
+      create: {
+        name: "Admin",
+      },
+    },
   });
 
   const user = await upsertUser({
     email: "john.doe@example.com",
-    name: "John Doe",
+    password: "password",
+    Profile: {
+      create: {
+        name: "John Doe",
+      },
+    },
   });
 
   console.log("Users created:", { admin, user });

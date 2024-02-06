@@ -10,36 +10,66 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id       Int    @id @default(autoincrement())
+  email    String @unique
+  password String
+
+  Profile     Profile?
+  FitnessData FitnessData[]
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
+
+model FitnessData {
+  id Int @id @default(autoincrement())
+
+  ExercisePlan   ExercisePlan[]
+  ExerciseRecord ExerciseRecord[]
+  Meal           Meal[]
+  WeightRecord   WeightRecord[]
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  userId Int
+  User   User @relation(fields: [userId], references: [id])
+}
+
+model Profile {
+  userId Int  @id
+  User   User @relation(fields: [userId], references: [id])
+
+  name   String?
+  age    Int?
+  weight Float? //in kg
+  height Int? //in centimeters
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+}
+
 model Muscle {
   id   Int    @id @default(autoincrement())
   name String @unique
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
 
   Excercise   Exercise? @relation(fields: [excerciseId], references: [id])
   excerciseId Int?
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String?
-
-  createdAt      DateTime         @default(now()) @map(name: "created_at")
-  updatedAt      DateTime         @updatedAt @map(name: "updated_at")
-  ExercisePlan   ExercisePlan[]
-  ExerciseRecord ExerciseRecord[]
-  Meal           Meal[]
-  WeightRecord   WeightRecord[]
-}
-
-// Describes an excercise
 model Exercise {
   id Int @id @default(autoincrement())
 
-  name    String   @unique
-  muscles Muscle[]
+  name String @unique
 
-  createdAt      DateTime         @default(now()) @map(name: "created_at")
-  updatedAt      DateTime         @updatedAt @map(name: "updated_at")
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  muscles        Muscle[]
   ExercisePlan   ExercisePlan[]
   ExerciseRecord ExerciseRecord[]
 }
@@ -50,8 +80,11 @@ model Set {
   weight   String?
   reps     String?
 
-  workout   Workout @relation(fields: [workoutId], references: [id])
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
   workoutId Int
+  workout   Workout @relation(fields: [workoutId], references: [id])
 }
 
 model Workout {
@@ -59,8 +92,11 @@ model Workout {
   excersiceId Int
   sets        Set[]
 
-  routine   Routine @relation(fields: [routineId], references: [id])
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
   routineId Int
+  routine   Routine @relation(fields: [routineId], references: [id])
 }
 
 model Routine {
@@ -78,10 +114,16 @@ model ExercisePlan {
   day         DateTime
   sets        Int
   repetitions Int
-  exerciseId  Int
-  userId      Int
-  Exercise    Exercise @relation(fields: [exerciseId], references: [id])
-  User        User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  // userId        Int
+  // User          User         @relation(fields: [userId], references: [id])
+  exerciseId    Int
+  Exercise      Exercise     @relation(fields: [exerciseId], references: [id])
+  fitnessDataId Int?
+  FitnessData   FitnessData? @relation(fields: [fitnessDataId], references: [id])
 }
 
 model ExerciseRecord {
@@ -89,10 +131,16 @@ model ExerciseRecord {
   day         DateTime
   sets        Int
   repetitions Int
-  exerciseId  Int
-  userId      Int
-  Exercise    Exercise @relation(fields: [exerciseId], references: [id])
-  User        User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  // userId        Int
+  // User          User         @relation(fields: [userId], references: [id])
+  exerciseId    Int
+  Exercise      Exercise     @relation(fields: [exerciseId], references: [id])
+  fitnessDataId Int?
+  FitnessData   FitnessData? @relation(fields: [fitnessDataId], references: [id])
 }
 
 model Meal {
@@ -106,37 +154,54 @@ model Meal {
   calories    Float
   mealType    String // Breakfast, Lunch, Dinner, Snack, other
 
-  userId        Int
-  User          User            @relation(fields: [userId], references: [id])
+  // userId        Int
+  // User          User            @relation(fields: [userId], references: [id])
   NutritionInfo NutritionInfo[]
   // calorioes?
   // kilojoule?
 
   createdAt DateTime @default(now()) @map(name: "created_at")
   updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  FitnessData   FitnessData? @relation(fields: [fitnessDataId], references: [id])
+  fitnessDataId Int?
 }
 
 model WeightRecord {
   id     Int      @id @default(autoincrement())
   date   DateTime
   weight Float
-  userId Int
-  User   User     @relation(fields: [userId], references: [id])
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
+  // userId        Int
+  // User          User         @relation(fields: [userId], references: [id])
+  fitnessDataId Int?
+  FitnessData   FitnessData? @relation(fields: [fitnessDataId], references: [id])
 }
 
 //TODO: need to add sub nutritions eg. carbs can be broken down into sugars, starch, dietry fibers
 model Nutrition {
-  id            Int             @id @default(autoincrement())
-  name          String
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
   NutritionInfo NutritionInfo[]
 }
 
 model NutritionInfo {
-  id          Int       @id @default(autoincrement())
-  amount      Float
+  id     Int   @id @default(autoincrement())
+  amount Float
+
+  createdAt DateTime @default(now()) @map(name: "created_at")
+  updatedAt DateTime @updatedAt @map(name: "updated_at")
+
   mealId      Int
-  nutritionId Int
   Meal        Meal      @relation(fields: [mealId], references: [id])
+  nutritionId Int
   Nutrition   Nutrition @relation(fields: [nutritionId], references: [id])
 }
 

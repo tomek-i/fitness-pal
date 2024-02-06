@@ -1,10 +1,10 @@
 export interface APIService<T> {
   ApiURL: string;
 
-  Get(id: string): T;
+  Get(id: string): Promise<T>;
   GetAll(): T[];
 
-  Create(data: T): T;
-  Update(data: T): boolean;
-  Delete(id: string): boolean;
+  Create(data: T): Promise<T>;
+  Update(data: T): Promise<boolean>;
+  Delete(id: string): Promise<boolean>;
 }

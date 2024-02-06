@@ -11,7 +11,8 @@ async function recordWeight(prisma: PrismaClient, user: User) {
     data: {
       date: new Date(),
       weight: 70,
-      userId: user.id,
+      //TODO: this might not be right
+      fitnessDataId: user.id,
     },
   });
 }
@@ -22,7 +23,8 @@ async function recordMeal(prisma: PrismaClient, user: User) {
       name: "Breakfast",
       time: new Date(),
       notes: "Oatmeal with fruits and nuts",
-      userId: user.id,
+      //TODO: this might not be right
+      fitnessDataId: user.id,
       servingSize: "bowl",
       servings: 1,
       calories: 300,
@@ -76,7 +78,8 @@ async function recordExercise(prisma: PrismaClient, user: User) {
       sets: 3,
       repetitions: 10,
       exerciseId: exc.id,
-      userId: user.id,
+      //TODO: this might not be right
+      fitnessDataId: user.id,
     },
   });
 
@@ -86,7 +89,8 @@ async function recordExercise(prisma: PrismaClient, user: User) {
       sets: 3,
       repetitions: 12, // The user did 2 extra repetitions
       exerciseId: exc.id,
-      userId: user.id,
+      //TODO: this might not be right
+      fitnessDataId: user.id,
     },
   });
 }
