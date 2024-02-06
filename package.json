@@ -31,6 +31,7 @@
     "adr:view": "npx log4brains preview",
     "prisma:studio": "npx prisma studio",
     "prisma:migrate": "npx prisma migrate dev",
+    "postprisma:migrate": "npx prisma db push",
     "prisma:gen": "npx prisma generate",
     "prisma:seed": "npx prisma db seed",
     "coupling-graph": "npx madge --extensions js,jsx,ts,tsx,css,md,mdx ./ --exclude '.next|tailwind.config.js|reset.d.ts|prettier.config.js|postcss.config.js|playwright.config.ts|next.config.js|next-env.d.ts|instrumentation.ts|e2e/|README.md|.storybook/|.eslintrc.js' --image graph.svg"
