@@ -1,5 +1,29 @@
 {
   "tailwindCSS.experimental.classRegex": [
-    ["cva(?:<[^>]*>)?(([^)]*))", "[\"'`]([^\"'`]*).*?[\"'`]", "(?:twMerge|twJoin)\\(([^\\);]*)[\\);]"]
-  ]
+    ["cva\\(([^)]*)\\)", "[\"'`]([^\"'`]*).*?[\"'`]"],
+    ["cx\\(([^)]*)\\)", "(?:'|\"|`)([^']*)(?:'|\"|`)"]
+  ],
+  // Render vertical rulers to keep characters within a certain limit
+  "editor.rulers": [
+    {
+      "column": 80,
+      "color": "#ff990022"
+    },
+    {
+      "column": 100,
+      "color": "#ff000055"
+    }
+  ],
+  "editor.codeActionsOnSave": {
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.tabSize": 2,
+  "editor.formatOnSave": true,
+  "prettier.configPath": "./prettier.config.js",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+
+  // add spaces between brackets
+  "prettier.bracketSpacing": false,
+  // closing bracket of a multi-line element is put on the same line
+  "prettier.bracketSameLine": true
 }
