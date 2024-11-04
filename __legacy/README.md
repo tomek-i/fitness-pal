@@ -1,2 +1,0 @@
-# Fitness Pal
-TODO
