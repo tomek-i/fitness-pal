@@ -1,0 +1,20 @@
+import React from "react"
+import { clsx } from "clsx"
+import { twMerge } from "tailwind-merge"
+import { {{lowerCase name}} ,type {{pascalCase name}}Variants } from "./{{pascalCase name}}.variants"
+
+export type {{pascalCase name}}Props = { disabled?: boolean } 
+  & React.HTMLAttributes<HTMLDivElement> 
+  & {{pascalCase name}}Variants
+
+export const {{pascalCase name}}: React.FC<{{pascalCase name}}Props> = ({
+  className = "",
+  size = "default",
+  variant = "default",
+  disabled = false,
+  ...props
+}) => {
+  const style = clsx({{lowerCase name}}({ variant, disabled, size }))
+  
+  return <div className={twMerge(style, className)} {...props}></div>
+}
