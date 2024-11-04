@@ -1,5 +1,0 @@
-project:
-  name: fitness-pal
-  tz: Australia/Sydney
-  adrFolder: ./docs/adr
-  packages: []
