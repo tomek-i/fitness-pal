@@ -1,0 +1,32 @@
+name: PR Title Prefix
+
+on:
+  pull_request:
+    types: [opened]
+
+jobs:
+  add-pr-prefix:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get PR commit message
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=%B)
+          echo "$COMMIT_MSG" > temp_commit_msg.txt
+
+      - name: Run commit message hook to get emoji
+        run: |
+          chmod +x ./scripts/commit-msg-hook.sh
+          ./scripts/commit-msg-hook.sh temp_commit_msg.txt
+          UPDATED_MSG=$(cat temp_commit_msg.txt)
+          echo "Updated message: $UPDATED_MSG"
+
+      - name: Update PR title with emoji
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          gh pr edit $PR_NUMBER --title "$UPDATED_MSG"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
