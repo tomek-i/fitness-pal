@@ -2,33 +2,94 @@
   "name": "fitness-pal",
   "version": "0.1.0",
   "private": true,
+  "author": {
+    "name": "Tomek",
+    "url": "https://github.com/tomek-i",
+    "email": "tomek.iwainski@gmail.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/tomek-i/nextjs-project-template"
+  },
+  "homepage": "https://github.com/tomek-i/nextjs-project-template",
+  "bugs": {
+    "url": "https://github.com/tomek-i/nextjs-project-template/issues"
+  },
+  "keywords": [
+    "nextjs",
+    "react",
+    "tailwind",
+    "storybook",
+    "template"
+  ],
+  "license": "MIT",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
+    "webhook": "ngrok http 3000",
+    "vercel": "vercel",
+    "vercel:dev": "vercel dev",
+    "vercel:prod": "vercel --prod",
     "lint": "next lint",
-    "lint:fix": "next lint --fix",
+    "test": "jest",
+    "test:coverage": "jest --coverage",
     "prettier": "prettier --check \"**/*.{js,jsx,ts,tsx}\"",
     "prettier:fix": "prettier --write \"**/*.{js,jsx,ts,tsx}\"",
-    "test": "cross-env FORCE_COLOR=1 jest --passWithNoTests",
     "adr:init": "npx log4brains init",
     "adr": "npx log4brains adr new",
     "adr:view": "npx log4brains preview",
-    "lint": "next lint"
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
+    "plop": "plop",
+    "prepare": "husky || true"
   },
   "dependencies": {
+    "@sentry/nextjs": "^8.26.0",
+    "@types/better-sqlite3": "^7.6.11",
+    "axios": "^1.7.7",
+    "better-sqlite3": "^11.1.2",
+    "class-variance-authority": "^0.7.0",
+    "husky": "^9.1.6",
+    "next": "15.0.2",
     "react": "19.0.0-rc-02c0e824-20241028",
     "react-dom": "19.0.0-rc-02c0e824-20241028",
-    "next": "15.0.2"
+    "tailwind-merge": "^2.5.2",
+    "tailwindcss-filters": "^3.0.0",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@chromatic-com/storybook": "^3.2.2",
+    "@storybook/addon-essentials": "^8.4.1",
+    "@storybook/addon-interactions": "^8.4.1",
+    "@storybook/addon-links": "^8.4.1",
+    "@storybook/addon-onboarding": "^8.4.1",
+    "@storybook/blocks": "^8.4.1",
+    "@storybook/nextjs": "^8.4.1",
+    "@storybook/react": "^8.4.1",
+    "@storybook/test": "^8.4.1",
+    "@types/jest": "^29.5.12",
     "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "postcss": "^8",
-    "tailwindcss": "^3.4.1",
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1",
+    "@types/shimmer": "^1.2.0",
     "eslint": "^8",
-    "eslint-config-next": "15.0.2"
+    "eslint-config-next": "15.0.2",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-storybook": "^0.10.2",
+    "eslint-plugin-tailwindcss": "^3.13.0",
+    "jest": "^29.7.0",
+    "plop": "^4.0.1",
+    "postcss": "^8",
+    "prettier": "3.0.3",
+    "prettier-plugin-tailwindcss": "^0.5.7",
+    "storybook": "^8.4.1",
+    "tailwindcss": "^3.4.1",
+    "ts-jest": "^29.2.4",
+    "typescript": "^5"
+  },
+  "overrides": {
+    "@types/react": "npm:types-react@19.0.0-rc.1",
+    "@types/react-dom": "npm:types-react-dom@19.0.0-rc.1"
   }
 }
