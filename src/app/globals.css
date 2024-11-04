@@ -3,155 +3,19 @@
 @tailwind utilities;
 
 :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-rgb: 255, 255, 255;
+  --background: #ffffff;
+  --foreground: #171717;
 }
 
-/* @media (prefers-color-scheme: dark) {
+@media (prefers-color-scheme: dark) {
   :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-rgb: 0, 0, 0;
-  }
-} */
-/* https://dev.to/alvaromontoro/css-one-liners-to-improve-almost-every-project-18m?ref=dailydev */
-@layer base {
-  body {
-    /* Limit the content width in the viewport */
-    /* 
-    Adding this one-liner will reduce the content size to occupy 90% of the viewport, 
-    limiting its width between 320 and 1000 pixels (feel free to update the minimum and maximum values).
-    This change will automatically make your content look much nicer. 
-    It will no longer be a vast text block but something that looks more structured and organized.
-    And if you also add margin: auto; to the body, the content will be centered on the page. 
-    Two lines of code make the content look so much better.
-    */
-    max-width: clamp(320px, 90%, 1000px);
-    /* additional recommendation */
-    margin: auto;
-
-    /* Increase the text size */
-    font-size: 1.25rem;
-    /* Increase the space among lines */
-    line-height: 1.5;
-
-    /*******************************/
-
-    color: rgb(var(--foreground-rgb));
-    background-color: rgb(var(--background-rgb));
-  }
-
-  /* Limit the size of images */
-  img {
-    max-width: 100%;
-  }
-
-  h1 {
-    @apply text-4xl;
-  }
-  h2 {
-    @apply text-3xl;
-  }
-  h3 {
-    @apply text-2xl;
-  }
-  h4 {
-    @apply text-xl;
-  }
-  h5 {
-    @apply text-lg;
-  }
-  h6 {
-    @apply text-base;
-  }
-
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply mb-4 text-balance;
-  }
-
-  table {
-    @apply w-full;
-  }
-
-  td,
-  th {
-    @apply p-4;
-  }
-  tr {
-    @apply bg-white;
-  }
-  th,
-  tfoot tr {
-    @apply bg-gray-800;
-  }
-  tr:nth-child(even) {
-    @apply bg-gray-100;
-  }
-  tr:not(:is(tfoot tr)) {
-    @apply border-b border-gray-300;
-  }
-
-  thead {
-    @apply cursor-default;
-  }
-
-  p {
-    @apply mb-4;
-  }
-
-  img {
-    @apply max-w-full;
+    --background: #0a0a0a;
+    --foreground: #ededed;
   }
 }
 
-@layer components {
-  .glass {
-    @apply bg-opacity-50 backdrop-blur-lg backdrop-filter;
-  }
-
-  .light-pop:hover {
-    box-shadow:
-      4px 4px 8px rgba(0, 0, 0, 0.1),
-      0px 0px 8px 0px white;
-  }
-
-  /*  apply this to a div containding the card-slider-cards */
-  .card-slider-wrapper {
-    display: flex;
-    gap: 20px;
-    width: 300px;
-    overflow-x: scroll;
-    /* or proximity which can snap back to the center if not dragged far */
-    scroll-snap-type: x mandatory;
-  }
-  /* apply this to the elements that should be in the slider */
-  .card-slider-card {
-    scroll-snap-align: start;
-    box-sizing: border-box;
-    padding: 20px 30px;
-    flex-shrink: 0;
-    width: 300px; /* this one needs to be same as in the wrapper */
-    background-color: white;
-    border-radius: 14px;
-    text-align: center;
-  }
-}
-
-@layer utilities {
-  .text-balance {
-    text-wrap: balance;
-  }
-  /* Chrome, Safari and Opera */
-  .no-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .no-scrollbar {
-    -ms-overflow-style: none; /* IE and Edge */
-    scrollbar-width: none; /* Firefox */
-  }
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: Arial, Helvetica, sans-serif;
 }
