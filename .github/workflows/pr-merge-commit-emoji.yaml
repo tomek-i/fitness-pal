@@ -1,0 +1,39 @@
+name: PR Merge Commit Prefix
+
+# Temporarily disabled until we can figure out how to get the merge commit message
+# on:
+#   pull_request:
+#     types:
+#       - closed
+
+jobs:
+  add-merge-prefix:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Get the merge commit message
+        run: |
+          PR_NUMBER=${{ github.event.pull_request.number }}
+          MERGE_COMMIT_MSG=$(gh pr view $PR_NUMBER --json title --jq '.title')
+          echo "$MERGE_COMMIT_MSG" > temp_merge_commit_msg.txt
+
+      - name: Run commit message hook to get emoji
+        run: |
+          chmod +x ./scripts/commit-msg-hook.sh
+          ./scripts/commit-msg-hook.sh temp_merge_commit_msg.txt
+          UPDATED_MSG=$(cat temp_merge_commit_msg.txt)
+          echo "Updated message: $UPDATED_MSG"
+
+      - name: Amend merge commit with prefixed message
+        run: |
+          MERGE_COMMIT_SHA=$(gh pr view $PR_NUMBER --json mergeCommit --jq '.mergeCommit.oid')
+          git checkout $MERGE_COMMIT_SHA
+          git commit --amend -m "$UPDATED_MSG"
+          git push --force-with-lease
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
