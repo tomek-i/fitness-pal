@@ -1,0 +1,191 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        Int    @id @default(autoincrement())
+  firstName String
+  lastName  String
+
+  gender String?
+
+  dateOfBirth DateTime?
+  height      Float?
+  weight      Float?
+
+  profilePictureUrl String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // Relationships
+  activities      Activity[]
+  TrainingPlan    TrainingPlan[]
+  MealLog         MealLog[]
+  BodyMeasurement BodyMeasurement[]
+}
+
+//This model will allow users to select exercises and link them to muscle groups, as well as store any relevant video links.
+model Exercise {
+  id          Int      @id @default(autoincrement())
+  name        String // Name of the exercise (e.g., "Dumbbell Pullover")
+  description String?
+  category    String // Category (e.g., "Upper Body", "Legs")
+  videoLink   String? // URL to a tutorial video
+  defaultSets Int? // Default number of sets for the exercise
+  defaultReps Int? // Default number of reps for the exercise
+  defaultRest Int? // Default rest time (in seconds)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  muscles                 Muscle[]                  @relation("ExerciseMuscles")
+  TrainingSessionExercise TrainingSessionExercise[]
+  TrainingPlanExercise    TrainingPlanExercise[]
+}
+
+model Muscle {
+  id            Int         @id @default(autoincrement())
+  name          String // Exact name of the muscle (e.g., "Bicep", "Triceps")
+  imageUrl      String? // URL for an image showing the muscle location
+  muscleGroup   MuscleGroup @relation(fields: [muscleGroupId], references: [id])
+  muscleGroupId Int
+  exercises     Exercise[]  @relation("ExerciseMuscles")
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @updatedAt
+}
+
+model MuscleGroup {
+  id        Int      @id @default(autoincrement())
+  name      String // Group name (e.g., "Upper Body", "Legs")
+  imageUrl  String? // URL for a muscle group image (e.g., diagram of upper body)
+  muscles   Muscle[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Users will create training plans that include a list of exercises for specific days.
+model TrainingPlan {
+  id                   Int                    @id @default(autoincrement())
+  name                 String // e.g., "Morning Routine"
+  userId               Int
+  user                 User                   @relation(fields: [userId], references: [id])
+  isPublic             Boolean // "Public" or "Private"
+  sessions             TrainingSession[]
+  createdAt            DateTime               @default(now())
+  updatedAt            DateTime               @updatedAt
+  TrainingPlanExercise TrainingPlanExercise[]
+  Activity             Activity[]
+}
+
+model TrainingSession {
+  id             Int                       @id @default(autoincrement())
+  trainingPlanId Int
+  trainingPlan   TrainingPlan              @relation(fields: [trainingPlanId], references: [id])
+  name           String // e.g., "Monday", "Tuesday"
+  exercises      TrainingSessionExercise[]
+  createdAt      DateTime                  @default(now())
+  updatedAt      DateTime                  @updatedAt
+}
+
+model TrainingSessionExercise {
+  id                Int             @id @default(autoincrement())
+  trainingSessionId Int
+  trainingSession   TrainingSession @relation(fields: [trainingSessionId], references: [id])
+  exerciseId        Int
+  sets              Int
+  reps              Int
+  rest              Int // Rest time in seconds
+  weight            Float? // Optional weight for exercises like lifting
+  exercise          Exercise        @relation(fields: [exerciseId], references: [id])
+}
+
+model TrainingPlanExercise {
+  id             Int          @id @default(autoincrement())
+  trainingPlanId Int
+  exerciseId     Int
+  dayoftheweek   String
+  sets           Int
+  reps           Int
+  rest           Int // Rest time in seconds
+  weight         Float? // Optional, for weight-based exercises
+  exercise       Exercise     @relation(fields: [exerciseId], references: [id])
+  trainingPlan   TrainingPlan @relation(fields: [trainingPlanId], references: [id])
+}
+
+//Users can log their activities (e.g., running, workout completion, etc.) and link to training plans.
+model Activity {
+  id             Int           @id @default(autoincrement())
+  userId         Int
+  user           User          @relation(fields: [userId], references: [id])
+  date           DateTime      @default(now())
+  type           String // e.g., "Run", "Workout", "Training Plan Completion"
+  description    String?
+  trainingPlanId Int? // Nullable in case activity isn't tied to a training plan
+  trainingPlan   TrainingPlan? @relation(fields: [trainingPlanId], references: [id])
+  progression    Progression[]
+}
+
+model Progression {
+  id         Int      @id @default(autoincrement())
+  activityId Int
+  activity   Activity @relation(fields: [activityId], references: [id])
+  metric     String // e.g., "Pushups", "Weight Lifted"
+  value      Float
+  createdAt  DateTime @default(now())
+}
+
+//Users can log their meals and nutrition intake.
+model MealLog {
+  id          Int      @id @default(autoincrement())
+  userId      Int
+  user        User     @relation(fields: [userId], references: [id])
+  date        DateTime @default(now())
+  mealType    String // e.g., "Breakfast", "Lunch", "Dinner", "Snack"
+  description String? // Optional, additional notes
+  calories    Int?
+  protein     Float?
+  carbs       Float?
+  fat         Float?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+}
+
+//Users can follow or befriend each other.
+model Friendship {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  friendId  Int
+  status    String // e.g., "pending", "accepted", "blocked"
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// This model will allow users to log various body metrics. You can store body weight, BMI, and other measurements like arm circumference, leg circumference, and so on.
+// NOTE: might need to have something like "unit" to specify the unit of measurement for each metric.
+// as well as keep it more generic for flexibility so things like "bicep" size or "thigh" can be added easily.
+model BodyMeasurement {
+  id         Int      @id @default(autoincrement())
+  userId     Int
+  user       User     @relation(fields: [userId], references: [id])
+  date       DateTime @default(now())
+  bodyWeight Float? // Body weight in kg
+  bmi        Float? // Body Mass Index
+  // bicepCircumference Float? // Bicep circumference in cm
+  // waistCircumference Float? // Waist circumference in cm
+  // hipCircumference   Float? // Hip circumference in cm
+  // chestCircumference Float? // Chest circumference in cm
+  // thighCircumference Float? // Thigh circumference in cm
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
