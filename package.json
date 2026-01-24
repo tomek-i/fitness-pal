@@ -69,6 +69,7 @@
     "dotenv": "^16.4.7",
     "eslint": "^9",
     "eslint-config-next": "16.1.4",
+    "@tailwindcss/postcss": "^4.1.18",
     "postcss": "^8",
     "tailwindcss": "^4.1.18",
     "typescript": "^5"
